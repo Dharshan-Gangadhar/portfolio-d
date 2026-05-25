@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Code2, Terminal, Database, Cloud, Sparkles } from "lucide-react";
 import "../styles/global.css";
 
@@ -31,29 +32,69 @@ const Skills = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { type: "spring", stiffness: 70, damping: 20 }
+    }
+  };
+
   return (
     <section className="skills" id="skills">
-      <div className="section-header">
-        <h2 className="section-title">Technical Skills</h2>
-        <p className="section-subtitle">A toolbox of modern technologies and AI-driven workflows.</p>
-      </div>
+      <div className="split-layout">
+        <motion.div 
+          className="section-header"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="section-title">Technical Skills</h2>
+          <p className="section-subtitle">
+            A toolbox of modern technologies and AI-driven workflows.
+          </p>
+        </motion.div>
 
-      <div className="skills-grid">
-        {skillCategories.map((category, index) => (
-          <div key={index} className="skill-category-card">
-            <div className="category-header">
-              <span className="category-icon">{category.icon}</span>
-              <h3>{category.title}</h3>
-            </div>
-            <div className="skill-items">
-              {category.skills.map((skill, i) => (
-                <div key={i} className="skill-pill">
-                  {skill}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+        <motion.div 
+          className="skills-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          {skillCategories.map((category, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="skill-category-card glass"
+            >
+              <div className="category-header">
+                <span className="category-icon">{category.icon}</span>
+                <h3>{category.title}</h3>
+              </div>
+              <div className="skill-items">
+                {category.skills.map((skill, i) => (
+                  <div key={i} className="skill-pill">
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

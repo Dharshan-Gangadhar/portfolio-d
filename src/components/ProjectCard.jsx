@@ -1,18 +1,31 @@
 import React from "react";
-import { Github, ExternalLink, Code2 } from "lucide-react"; // Import icons
+import { motion } from "framer-motion";
+import { Github, ExternalLink, Code2 } from "lucide-react"; 
 
 function ProjectCard({ project }) {
   const isAI = project.tech.some(t => 
     t.toLowerCase().includes('ai') || t.toLowerCase().includes('python')
   );
 
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { type: "spring", stiffness: 80, damping: 20 }
+    }
+  };
+
   return (
-    <div className={`project-card ${isAI ? 'ai-highlight' : ''}`}>
+    <motion.div
+      variants={cardVariants}
+      whileHover={{ y: -10, scale: 1.02 }}
+      className={`project-card ${isAI ? "ai-highlight" : ""} glass`}
+    >
       <div className="project-image-container">
         {project.image ? (
           <img src={project.image} alt={project.title} className="project-img" />
         ) : (
-          /* Adding an icon to the empty state so it looks intentional */
           <div className="project-placeholder-gradient">
             <Code2 size={48} className="placeholder-icon" />
           </div>
@@ -45,7 +58,7 @@ function ProjectCard({ project }) {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Send, CheckCircle2, AlertCircle } from "lucide-react"; // Added for feedback
+import { motion } from "framer-motion";
+import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import "./Contact.css";
 
 const Contact = () => {
@@ -42,7 +43,13 @@ const Contact = () => {
 
   return (
     <section className="contact" id="contact">
-      <div className="contact-card fade-in show">
+      <motion.div 
+        className="contact-card glass"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
+      >
         <div className="contact-header">
           <h2 className="section-title">Get In Touch</h2>
           <p className="contact-subtitle">
@@ -58,6 +65,7 @@ const Contact = () => {
               placeholder="Your Name"
               value={form.name}
               onChange={handleChange}
+              autoComplete="name"
               required
             />
           </div>
@@ -69,6 +77,7 @@ const Contact = () => {
               placeholder="Your Email"
               value={form.email}
               onChange={handleChange}
+              autoComplete="email"
               required
             />
           </div>
@@ -84,10 +93,12 @@ const Contact = () => {
             />
           </div>
 
-          <button 
+          <motion.button 
             type="submit" 
             className={`btn-primary submit-btn ${loading ? 'loading' : ''}`} 
             disabled={loading}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             {loading ? (
               <span className="btn-content">Sending...</span>
@@ -96,26 +107,34 @@ const Contact = () => {
                 Send Message <Send size={18} />
               </span>
             )}
-          </button>
+          </motion.button>
 
           <div className="status-container">
             {status === "success" && (
-              <div className="status-message success">
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                className="status-message success"
+              >
                 <CheckCircle2 size={18} />
                 <span>Message sent successfully! I'll be in touch.</span>
-              </div>
+              </motion.div>
             )}
             {status === "error" && (
-              <div className="status-message error">
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                className="status-message error"
+              >
                 <AlertCircle size={18} />
                 <span>Something went wrong. Please try again later.</span>
-              </div>
+              </motion.div>
             )}
           </div>
         </form>
-      </div>
+      </motion.div>
     </section>
   );
 };
 
-export default Contact;
+export default Contact;

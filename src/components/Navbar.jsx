@@ -13,6 +13,7 @@ const Navbar = ({ toggleTheme, isDark }) => {
       { id: "hero", label: "Home" },
       { id: "about", label: "About" },
       { id: "skills", label: "Skills" },
+      { id: "experience", label: "Experience" },
       { id: "projects", label: "Projects" },
       { id: "contact", label: "Contact" },
     ],
@@ -71,7 +72,7 @@ const Navbar = ({ toggleTheme, isDark }) => {
     >
       <div className="nav-container">
         <a className="logo" href="#hero" onClick={onNavClick}>
-          Dharshan<span className="logo-dot">.</span>
+          Dharshan<span className="logo-dot">⚡</span>
         </a>
 
         <ul className="nav-links">

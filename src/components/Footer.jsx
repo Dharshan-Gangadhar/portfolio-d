@@ -16,7 +16,7 @@ function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <a href="#hero" className="footer-logo">
-              Dharshan<span className="footer-logo-dot">.</span>
+              Dharshan<span className="footer-logo-dot">⚡</span>
             </a>
             <p className="footer-tagline">
               Full‑stack developer building fast web apps with AI.

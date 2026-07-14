@@ -12,51 +12,90 @@
    THEME VARIABLES
 ========================= */
 
-/* Updated THEME VARIABLES */
 :root {
-  --bg: #f7f8ff;
-  --text: #0b1020;
-  --secondary-text: rgba(11, 16, 32, 0.68);
-  --card-bg: rgba(255, 255, 255, 0.72);
-  --accent: #7c3aed;
-  --accent-2: #06b6d4;
-  --accent-gradient: linear-gradient(90deg, #7c3aed, #06b6d4);
-  --border: rgba(11, 16, 32, 0.10);
-  --shadow: rgba(0, 0, 0, 0.12);
-  --shadow-lg: rgba(0, 0, 0, 0.18);
-  --section-bg: rgba(255, 255, 255, 0.55);
-  --bg-rgb: 247, 248, 255;
-  --spot-1: rgba(124, 58, 237, 0.16);
-  --spot-2: rgba(6, 182, 212, 0.12);
-  --spot-3: rgba(255, 77, 110, 0.08);
+  --bg: #f5f6ff; /* Clean lavender-white */
+  --text: #0d0f28; /* Deep space-indigo */
+  --secondary-text: rgba(13, 15, 40, 0.7);
+  --card-bg: rgba(255, 255, 255, 0.65);
+  --accent: #6d28d9; /* Deep violet */
+  --accent-2: #0891b2; /* Cyber cyan */
+  --accent-gradient: linear-gradient(135deg, #6d28d9, #0891b2);
+  --border: rgba(109, 40, 217, 0.08);
+  --shadow: rgba(109, 40, 217, 0.06);
+  --shadow-lg: rgba(109, 40, 217, 0.12);
+  --section-bg: rgba(255, 255, 255, 0.45);
+  --bg-rgb: 245, 246, 255;
+  --spot-1: rgba(109, 40, 217, 0.12);
+  --spot-2: rgba(8, 145, 178, 0.1);
+  --spot-3: rgba(236, 72, 153, 0.06);
 }
 
 body.dark {
-  --bg: #020617; /* Deeper dark blue/black */
-  --text: #f8fafc;
-  --secondary-text: rgba(248, 250, 252, 0.72);
-  --card-bg: rgba(255, 255, 255, 0.03);
-  --accent: #c084fc;
-  --accent-2: #22d3ee;
-  --accent-gradient: linear-gradient(135deg, #c084fc, #22d3ee);
-  --border: rgba(255, 255, 255, 0.05);
-  --shadow: rgba(0, 0, 0, 0.4);
-  --shadow-lg: rgba(0, 0, 0, 0.6);
-  --section-bg: rgba(255, 255, 255, 0.02);
-  --bg-rgb: 2, 6, 23;
-  --spot-1: rgba(192, 132, 252, 0.18);
-  --spot-2: rgba(34, 211, 238, 0.12);
-  --spot-3: rgba(244, 63, 94, 0.08);
+  --bg: #050515; /* Deep spacesuit-violet/black */
+  --text: #f1f3f9; /* Vivid ice-white */
+  --secondary-text: rgba(241, 243, 249, 0.65);
+  --card-bg: rgba(15, 15, 35, 0.4); /* Frosted space-indigo */
+  --accent: #a855f7; /* Electric neon-purple */
+  --accent-2: #06b6d4; /* Vivid cyber-cyan */
+  --accent-gradient: linear-gradient(135deg, #a855f7, #06b6d4);
+  --border: rgba(168, 85, 247, 0.12);
+  --shadow: rgba(0, 0, 0, 0.5);
+  --shadow-lg: rgba(0, 0, 0, 0.7);
+  --section-bg: rgba(10, 10, 25, 0.2);
+  --bg-rgb: 5, 5, 21;
+  --spot-1: rgba(168, 85, 247, 0.22);
+  --spot-2: rgba(6, 118, 212, 0.15);
+  --spot-3: rgba(244, 63, 94, 0.1);
 }
+
 /* =========================
-   UTILITIES
+   UTILITIES & 3D UTILS
 ========================= */
+
 .glass {
-  background: rgba(var(--bg-rgb), 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+    0 10px 30px var(--shadow);
+  transition: all 0.3s ease;
 }
+
+body.light .glass {
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.75),
+    0 10px 30px var(--shadow);
+}
+
+/* 3D Transform and Perspective Utilities */
+.perspective-container {
+  perspective: 1200px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.tilt-wrapper {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.lift-3d-sm {
+  transform: translateZ(15px);
+}
+
+.lift-3d-md {
+  transform: translateZ(25px);
+}
+
+.lift-3d-lg {
+  transform: translateZ(40px);
+}
+
 /* =========================
    BASE STYLES
 ========================= */
@@ -70,11 +109,7 @@ html {
 body {
   font-family: "Outfit", system-ui, -apple-system, sans-serif;
   line-height: 1.6;
-  background:
-    radial-gradient(1200px 800px at 10% -10%, var(--spot-1), transparent 58%),
-    radial-gradient(900px 600px at 90% 10%, var(--spot-2), transparent 60%),
-    radial-gradient(900px 700px at 50% 110%, var(--spot-3), transparent 62%),
-    var(--bg);
+  background: var(--bg);
   color: var(--text);
   transition: background 0.4s ease, color 0.4s ease;
   /* Smoother font rendering */
@@ -571,7 +606,6 @@ p {
 }
 
 .project-card:hover {
-  transform: translateY(-10px);
   border-color: var(--accent);
   box-shadow: 0 20px 40px var(--shadow);
 }
@@ -640,10 +674,6 @@ p {
 
 .project-card-content {
   transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.project-card:hover .project-card-content {
-  transform: translateY(-2px);
 }
 
 .project-placeholder-gradient {
@@ -751,13 +781,12 @@ p {
   border: 1px solid var(--border);
   padding: 32px; /* Uniform padding with Project Cards */
   border-radius: 24px;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .skill-category-card:hover {
-  transform: translateY(-8px);
   border-color: var(--accent);
   box-shadow: 0 15px 30px var(--shadow);
 }
@@ -789,6 +818,7 @@ p {
   flex-wrap: wrap;
   gap: 12px;
 }
+
 
 .skill-pill {
   background: rgba(var(--bg-rgb), 0.05);

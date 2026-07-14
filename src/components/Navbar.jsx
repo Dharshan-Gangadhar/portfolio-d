@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import "../styles/global.css";
 
-const Navbar = ({ toggleTheme, isDark }) => {
+const Navbar = ({ toggleTheme, isDark, view, handleNavClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
@@ -19,6 +19,8 @@ const Navbar = ({ toggleTheme, isDark }) => {
     ],
     []
   );
+
+  const currentActiveSection = view === "projects" ? "projects" : activeSection;
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -36,6 +38,9 @@ const Navbar = ({ toggleTheme, isDark }) => {
   }, []);
 
   useEffect(() => {
+    // Only run scroll intersection observer if we are on the main homepage
+    if (view !== "main") return;
+
     const elements = navItems
       .map((item) => document.getElementById(item.id))
       .filter(Boolean);
@@ -57,9 +62,19 @@ const Navbar = ({ toggleTheme, isDark }) => {
 
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, [navItems]);
+  }, [navItems, view]);
 
   const onNavClick = () => setIsMenuOpen(false);
+
+  const handleLinkClick = (e, itemId) => {
+    e.preventDefault();
+    if (itemId === "projects") {
+      handleNavClick("projects");
+    } else {
+      handleNavClick("main", itemId);
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <motion.nav
@@ -71,7 +86,11 @@ const Navbar = ({ toggleTheme, isDark }) => {
       }`}
     >
       <div className="nav-container">
-        <a className="logo" href="#hero" onClick={onNavClick}>
+        <a 
+          className="logo" 
+          href={view === "main" ? "#hero" : "#"} 
+          onClick={(e) => handleLinkClick(e, "hero")}
+        >
           Dharshan<span className="logo-dot">⚡</span>
         </a>
 
@@ -79,9 +98,9 @@ const Navbar = ({ toggleTheme, isDark }) => {
           {navItems.map((item) => (
             <li key={item.id}>
               <a
-                href={`#${item.id}`}
-                onClick={onNavClick}
-                className={activeSection === item.id ? "is-active" : ""}
+                href={view === "main" ? `#${item.id}` : "#"}
+                onClick={(e) => handleLinkClick(e, item.id)}
+                className={currentActiveSection === item.id ? "is-active" : ""}
               >
                 {item.label}
               </a>
@@ -121,9 +140,9 @@ const Navbar = ({ toggleTheme, isDark }) => {
             {navItems.map((item) => (
               <a
                 key={item.id}
-                href={`#${item.id}`}
-                onClick={onNavClick}
-                className={activeSection === item.id ? "is-active" : ""}
+                href={view === "main" ? `#${item.id}` : "#"}
+                onClick={(e) => handleLinkClick(e, item.id)}
+                className={currentActiveSection === item.id ? "is-active" : ""}
               >
                 {item.label}
               </a>

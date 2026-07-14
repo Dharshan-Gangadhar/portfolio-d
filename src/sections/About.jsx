@@ -1,11 +1,12 @@
 import React from "react";
 import { Code, GraduationCap, Rocket } from "lucide-react";
+import Tilt from "../components/Tilt";
 import "./About.css";
 
 function About() {
   return (
     <section className="about" id="about">
-      <div className="about-card fade-in show">
+      <Tilt className="about-card fade-in show">
         <div className="about-container">
           <h2>About Me</h2>
 
@@ -40,9 +41,10 @@ function About() {
             skills and grow as a software engineer.
           </p>
         </div>
-      </div>
+      </Tilt>
     </section>
   );
 }
+
 
 export default About;

@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
+import Tilt from "../components/Tilt";
 import "./Experience.css";
 import "../styles/global.css";
 
@@ -82,37 +83,37 @@ const Experience = () => {
             <motion.div
               key={exp.id}
               variants={itemVariants}
-              whileHover={{ x: 5 }}
-              className="timeline-item glass"
             >
-              <div className="timeline-dot">
-                <Briefcase size={18} />
-              </div>
-              <div className="experience-header">
-                <h3>{exp.role}</h3>
-                <h4>{exp.company}</h4>
-              </div>
-              
-              <div className="experience-meta">
-                <span className="meta-item">
-                  <Calendar size={14} />
-                  {exp.period}
-                </span>
-                <span className="meta-item">
-                  <MapPin size={14} />
-                  {exp.location}
-                </span>
-              </div>
-              
-              <p className="experience-desc">{exp.description}</p>
-              
-              <div className="skill-items">
-                {exp.skills.map((skill, i) => (
-                  <div key={i} className="skill-pill">
-                    {skill}
-                  </div>
-                ))}
-              </div>
+              <Tilt className="timeline-item glass preserve-3d">
+                <div className="timeline-dot lift-3d-md">
+                  <Briefcase size={18} />
+                </div>
+                <div className="experience-header lift-3d-sm">
+                  <h3>{exp.role}</h3>
+                  <h4>{exp.company}</h4>
+                </div>
+                
+                <div className="experience-meta lift-3d-sm">
+                  <span className="meta-item">
+                    <Calendar size={14} />
+                    {exp.period}
+                  </span>
+                  <span className="meta-item">
+                    <MapPin size={14} />
+                    {exp.location}
+                  </span>
+                </div>
+                
+                <p className="experience-desc lift-3d-sm">{exp.description}</p>
+                
+                <div className="skill-items lift-3d-md">
+                  {exp.skills.map((skill, i) => (
+                    <div key={i} className="skill-pill">
+                      {skill}
+                    </div>
+                  ))}
+                </div>
+              </Tilt>
             </motion.div>
           ))}
         </motion.div>
@@ -122,3 +123,4 @@ const Experience = () => {
 };
 
 export default Experience;
+

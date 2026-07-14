@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Code2, Terminal, Database, Cloud, Sparkles } from "lucide-react";
+import Tilt from "../components/Tilt";
 import "../styles/global.css";
 
 const Skills = () => {
@@ -78,20 +79,20 @@ const Skills = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="skill-category-card glass"
             >
-              <div className="category-header">
-                <span className="category-icon">{category.icon}</span>
-                <h3>{category.title}</h3>
-              </div>
-              <div className="skill-items">
-                {category.skills.map((skill, i) => (
-                  <div key={i} className="skill-pill">
-                    {skill}
-                  </div>
-                ))}
-              </div>
+              <Tilt className="skill-category-card glass preserve-3d">
+                <div className="category-header lift-3d-sm">
+                  <span className="category-icon">{category.icon}</span>
+                  <h3>{category.title}</h3>
+                </div>
+                <div className="skill-items lift-3d-md">
+                  {category.skills.map((skill, i) => (
+                    <div key={i} className="skill-pill">
+                      {skill}
+                    </div>
+                  ))}
+                </div>
+              </Tilt>
             </motion.div>
           ))}
         </motion.div>
@@ -101,3 +102,4 @@ const Skills = () => {
 };
 
 export default Skills;
+

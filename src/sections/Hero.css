@@ -13,18 +13,7 @@
   overflow: hidden;
 }
 
-/* Ambient background glow */
-.hero::before {
-  content: "";
-  position: absolute;
-  top: -10%;
-  right: -5%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, var(--spot-2) 0%, transparent 70%);
-  filter: blur(60px);
-  z-index: 0;
-}
+
 
 .hero-left {
   max-width: 650px;
@@ -89,6 +78,9 @@
   align-items: center;
   width: clamp(250px, 30vw, 350px); /* Match image size to container */
   height: clamp(250px, 30vw, 350px);
+  transform: perspective(1200px) rotateX(calc(var(--my) * -30deg)) rotateY(calc(var(--mx) * 30deg));
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s ease;
 }
 
 .profile-img-container::after {
@@ -103,14 +95,16 @@
   z-index: 0;
   animation: glow-breathe 5.5s ease-in-out infinite;
   pointer-events: none;
+  transform: translateZ(-5px);
 }
 
 .profile-img-container:hover .profile-img {
-  transform: translateY(-6px) rotate(-1deg) scale(1.01);
+  transform: translateZ(40px) scale(1.02);
 }
 
 .profile-img-container:hover .img-glow {
-  opacity: 0.45;
+  opacity: 0.5;
+  transform: translateZ(-25px) scale(1.05);
 }
 
 .profile-img {
@@ -120,13 +114,14 @@
   object-fit: cover;
   border: 2px solid var(--accent);
   box-shadow: 0 20px 50px var(--shadow);
-  animation: morph 8s ease-in-out infinite alternate, float 6s ease-in-out infinite;
+  animation: morph 8s ease-in-out infinite alternate;
   
   /* CRITICAL FIXES */
   position: relative; 
   z-index: 5; /* Moves image to front */
   display: block; 
-  transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateZ(25px);
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* Glowing effect behind the profile image */
@@ -140,8 +135,9 @@
   filter: blur(40px);
   opacity: 0.3;
   z-index: 1; /* Keep glow behind */
+  transform: translateZ(-15px);
   animation: morph 8s ease-in-out infinite alternate;
-  transition: opacity 420ms ease;
+  transition: opacity 420ms ease, transform 420ms cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 @keyframes morph {
@@ -266,19 +262,36 @@
   font-size: 0.9rem;
   z-index: 10;
   animation: float-sway 5.5s ease-in-out infinite;
-  transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
-    box-shadow 320ms ease,
-    border-color 320ms ease;
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
-.floating-card:hover {
-  transform: translateY(-8px) scale(1.03) rotate(-1deg);
-  border-color: rgba(124, 58, 237, 0.32);
-  box-shadow: 0 18px 45px var(--shadow);
+.card-1 { 
+  top: 10%; 
+  left: -10%; 
+  animation-delay: 0s; 
+  transform: translateZ(60px);
+}
+.card-2 { 
+  bottom: 15%; 
+  right: -5%; 
+  animation-delay: 1.6s; 
+  transform: translateZ(80px);
 }
 
-.card-1 { top: 10%; left: -10%; animation-delay: 0s; }
-.card-2 { bottom: 15%; right: -5%; animation-delay: 1.6s; }
+.profile-img-container:hover .card-1 {
+  transform: translateZ(85px) scale(1.05);
+  border-color: var(--accent);
+  box-shadow: 0 15px 35px var(--shadow);
+}
+
+.profile-img-container:hover .card-2 {
+  transform: translateZ(105px) scale(1.05);
+  border-color: var(--accent-2);
+  box-shadow: 0 15px 35px var(--shadow);
+}
+
 
 @keyframes float-sway {
   0%, 100% { transform: translateY(0) rotate(-1deg); }

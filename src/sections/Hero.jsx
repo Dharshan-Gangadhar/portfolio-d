@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import "./Hero.css";
 
 const Hero = () => {
+  const containerRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    // Normalize coordinates: -0.5 to 0.5
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    containerRef.current.style.setProperty("--mx", x);
+    containerRef.current.style.setProperty("--my", y);
+  };
+
+  const handleMouseLeave = () => {
+    if (!containerRef.current) return;
+    containerRef.current.style.setProperty("--mx", 0);
+    containerRef.current.style.setProperty("--my", 0);
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -63,24 +81,33 @@ const Hero = () => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
       >
-        <div className="profile-img-container">
+        <div 
+          className="profile-img-container preserve-3d"
+          ref={containerRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            "--mx": 0,
+            "--my": 0
+          }}
+        >
           <img
             src="/profile.webp"
             alt="Dharshan - Full Stack Developer"
-            className="profile-img"
+            className="profile-img lift-3d-md"
             width="400"
             height="400"
             fetchPriority="high"
           />
           <div className="img-glow"></div>
           <motion.div 
-            className="floating-card card-1 glass"
+            className="floating-card card-1 glass lift-3d-lg"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5 }}
           >🚀 Full Stack</motion.div>
           <motion.div 
-            className="floating-card card-2 glass"
+            className="floating-card card-2 glass lift-3d-lg"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.8 }}
@@ -92,3 +119,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

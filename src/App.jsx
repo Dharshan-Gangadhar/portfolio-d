@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "./components/Navbar";
 import ThreeDCanvas from "./components/ThreeDCanvas";
@@ -24,6 +24,7 @@ function App() {
   const [dark, setDark] = useState(() => getInitialTheme());
   const [view, setView] = useState("main"); // "main" or "projects"
   const [targetSection, setTargetSection] = useState(null);
+  const lenisRef = useRef(null);
 
   useEffect(() => {
     document.body.classList.toggle("dark", dark);
@@ -40,6 +41,7 @@ function App() {
       gestureOrientation: "vertical",
       smoothWheel: true,
     });
+    lenisRef.current = lenis;
 
     function raf(time) {
       lenis.raf(time);
@@ -50,6 +52,7 @@ function App() {
 
     return () => {
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
@@ -58,7 +61,11 @@ function App() {
   const handleNavClick = (newView, sectionId = null) => {
     setView(newView);
     if (newView === "projects") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: false });
+      } else {
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
     } else if (sectionId) {
       setTargetSection(sectionId);
     }
@@ -68,9 +75,13 @@ function App() {
   useEffect(() => {
     if (view === "main" && targetSection) {
       const timer = setTimeout(() => {
-        const element = document.getElementById(targetSection);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(`#${targetSection}`, { offset: -80 });
+        } else {
+          const element = document.getElementById(targetSection);
+          if (element) {
+            element.scrollIntoView({ behavior: "auto", block: "start" });
+          }
         }
         setTargetSection(null);
       }, 100);
@@ -101,7 +112,7 @@ function App() {
           background: "var(--accent-gradient)",
           transformOrigin: "0%",
           zIndex: 9999,
-          boxShadow: "0 2px 10px rgba(168, 85, 247, 0.4)"
+          boxShadow: "0 2px 10px var(--shadow-lg)"
         }} 
       />
 
@@ -130,7 +141,7 @@ function App() {
         </main>
       </AnimatePresence>
 
-      <Footer />
+      <Footer handleNavClick={handleNavClick} lenisRef={lenisRef} />
     </div>
   );
 }

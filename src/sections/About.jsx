@@ -11,11 +11,8 @@ function About() {
           <h2>About Me</h2>
 
           <p>
-            I’m a <strong>Computer Science</strong> student passionate about
-            building real, working software and continuously improving my
-            technical skills. I enjoy turning ideas into practical projects —
-            from developing Java applications to building and deploying
-            full‑stack web solutions.
+            I'm a <strong>Computer Science</strong> student driven by 
+            curiosity and a passion for building software that feels effortless to use.
           </p>
 
           <div className="about-stats">
@@ -25,7 +22,7 @@ function About() {
             </div>
             <div className="stat-item">
               <Code className="stat-icon" />
-              <span>Project Focused</span>
+              <span>FULL-STACK DEV</span>
             </div>
             <div className="stat-item">
               <Rocket className="stat-icon" />
@@ -34,11 +31,10 @@ function About() {
           </div>
 
           <p>
-            I actively experiment, debug, and refine my work because I believe
-            real growth comes from <strong>building</strong>. Beyond coding, I’m
-            someone who doesn’t give up easily when things break — I fix them.
-            I’m currently looking for <strong>opportunities</strong> to apply my
-            skills and grow as a software engineer.
+            Right now, I’m focused on building a solid foundation in<strong> full-stack web development</strong> and <strong>Python</strong>.
+            For me, coding goes beyond writing syntax—it’s about breaking down complex problems and turning them into clean, functional, and user-friendly web experiences.
+            As a developer on a continuous learning path, I’m always eager to pick up new tools, take on challenging projects, and collaborate with others in the tech community. 
+            Whether you want to discuss full-stack projects, share ideas, or just connect, my door is always open!  
           </p>
         </div>
       </Tilt>

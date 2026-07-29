@@ -48,7 +48,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 15px rgba(124, 58, 237, 0.2);
+  box-shadow: 0 0 15px var(--shadow-lg);
   z-index: 2;
 }
 

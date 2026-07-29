@@ -92,7 +92,7 @@ const Hero = () => {
           }}
         >
           <img
-            src="/profile.webp"
+            src="/Dharshan.jpg"
             alt="Dharshan - Full Stack Developer"
             className="profile-img lift-3d-md"
             width="400"
@@ -111,7 +111,7 @@ const Hero = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.8 }}
-          >🤖 AI Agent</motion.div>
+          >🤖 AI</motion.div>
         </div>
       </motion.div>
     </section>

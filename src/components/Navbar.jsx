@@ -96,13 +96,20 @@ const Navbar = ({ toggleTheme, isDark, view, handleNavClick }) => {
 
         <ul className="nav-links">
           {navItems.map((item) => (
-            <li key={item.id}>
+            <li key={item.id} style={{ position: "relative" }}>
               <a
                 href={view === "main" ? `#${item.id}` : "#"}
                 onClick={(e) => handleLinkClick(e, item.id)}
                 className={currentActiveSection === item.id ? "is-active" : ""}
               >
-                {item.label}
+                {currentActiveSection === item.id && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    className="nav-active-pill"
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  />
+                )}
+                <span style={{ position: "relative", zIndex: 2 }}>{item.label}</span>
               </a>
             </li>
           ))}

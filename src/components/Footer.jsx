@@ -2,12 +2,25 @@ import React from "react";
 import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
 import "../styles/global.css";
 
-function Footer() {
+function Footer({ handleNavClick, lenisRef }) {
   const currentYear = new Date().getFullYear();
 
   const scrollToTop = (e) => {
     e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (lenisRef && lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: false });
+    } else {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+  };
+
+  const handleLinkClick = (e, target) => {
+    e.preventDefault();
+    if (target === "projects") {
+      if (handleNavClick) handleNavClick("projects");
+    } else {
+      if (handleNavClick) handleNavClick("main", target);
+    }
   };
 
   return (
@@ -15,7 +28,7 @@ function Footer() {
       <div className="footer-container">
         <div className="footer-top">
           <div className="footer-brand">
-            <a href="#hero" className="footer-logo">
+            <a href="#hero" className="footer-logo" onClick={(e) => handleLinkClick(e, "hero")}>
               Dharshan<span className="footer-logo-dot">⚡</span>
             </a>
             <p className="footer-tagline">
@@ -24,10 +37,10 @@ function Footer() {
           </div>
 
           <nav className="footer-links" aria-label="Footer navigation">
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+            <a href="#about" onClick={(e) => handleLinkClick(e, "about")}>About</a>
+            <a href="#skills" onClick={(e) => handleLinkClick(e, "skills")}>Skills</a>
+            <a href="#projects" onClick={(e) => handleLinkClick(e, "projects")}>Projects</a>
+            <a href="#contact" onClick={(e) => handleLinkClick(e, "contact")}>Contact</a>
           </nav>
 
           <div className="footer-socials">

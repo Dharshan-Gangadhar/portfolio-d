@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import "../styles/global.css";
 
 function Footer({ handleNavClick, lenisRef }) {
@@ -10,7 +10,7 @@ function Footer({ handleNavClick, lenisRef }) {
     if (lenisRef && lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: false });
     } else {
-      window.scrollTo({ top: 0, behavior: "auto" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -24,69 +24,58 @@ function Footer({ handleNavClick, lenisRef }) {
   };
 
   return (
-    <footer className="footer">
-      <div className="footer-container">
-        <div className="footer-top">
-          <div className="footer-brand">
-            <a href="#hero" className="footer-logo" onClick={(e) => handleLinkClick(e, "hero")}>
-              Dharshan<span className="footer-logo-dot">⚡</span>
-            </a>
-            <p className="footer-tagline">
-              Full‑stack developer building fast web apps with AI.
-            </p>
-          </div>
-
-          <nav className="footer-links" aria-label="Footer navigation">
-            <a href="#about" onClick={(e) => handleLinkClick(e, "about")}>About</a>
-            <a href="#skills" onClick={(e) => handleLinkClick(e, "skills")}>Skills</a>
-            <a href="#projects" onClick={(e) => handleLinkClick(e, "projects")}>Projects</a>
-            <a href="#contact" onClick={(e) => handleLinkClick(e, "contact")}>Contact</a>
-          </nav>
-
-          <div className="footer-socials">
-            <a
-              href="https://github.com/Dharshan-Gangadhar"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-            >
-              <Github size={20} />
-              <span>GitHub</span>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/dharshan-gangadhar75/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={20} />
-              <span>LinkedIn</span>
-            </a>
-            <a href="mailto:dharshanofll@gmail.com" aria-label="Email">
-              <Mail size={20} />
-              <span>Email</span>
-            </a>
+    <footer className="footer massive-footer">
+      <div className="footer-top-grid">
+        
+        <div className="footer-info-col">
+          <a href="#hero" className="footer-logo" onClick={(e) => handleLinkClick(e, "hero")}>
+            Dharshan<span className="footer-logo-dot">⚡</span>
+          </a>
+          <p className="footer-tagline">
+            Turning ideas into AI-powered reality.<br/>
+            Built with React & Node.js.
+          </p>
+          <div className="footer-copyright">
+            © {currentYear} Dharshan Gangadhar.
           </div>
         </div>
 
-        <div className="footer-bottom">
-          <div className="footer-info">
-            <p>
-              © {currentYear} <span className="highlight">Dharshan</span>. Built
-              with React & Node.js ⚡
-            </p>
-            <p className="footer-motto">Turning ideas into AI-powered reality.</p>
+        <div className="footer-links-col">
+          <div className="footer-nav-group">
+            <h4 className="footer-group-title">Navigation</h4>
+            <nav className="footer-nav-list" aria-label="Footer navigation">
+              <a href="#about" onClick={(e) => handleLinkClick(e, "about")}>About</a>
+              <a href="#skills" onClick={(e) => handleLinkClick(e, "skills")}>Skills</a>
+              <a href="#projects" onClick={(e) => handleLinkClick(e, "projects")}>Projects</a>
+              <a href="#contact" onClick={(e) => handleLinkClick(e, "contact")}>Contact</a>
+            </nav>
           </div>
 
+          <div className="footer-nav-group">
+            <h4 className="footer-group-title">Connect</h4>
+            <nav className="footer-nav-list">
+              <a href="https://github.com/Dharshan-Gangadhar" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="https://www.linkedin.com/in/dharshan-gangadhar75/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="mailto:dharshanoffll@gmail.com">Email</a>
+            </nav>
+          </div>
+        </div>
+        
+        <div className="footer-action-col">
           <button
             onClick={scrollToTop}
-            className="scroll-top"
+            className="scroll-top-massive"
             aria-label="Scroll to top"
             type="button"
           >
-            <ArrowUp size={20} />
+            <ArrowUp size={24} />
           </button>
         </div>
+
+      </div>
+
+      <div className="footer-massive-text-container">
+        <h1 className="footer-massive-text">DHARSHAN</h1>
       </div>
     </footer>
   );

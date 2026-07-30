@@ -1,48 +1,151 @@
 /* =========================
-   CONTACT SECTION (REFINED)
-/
-/* =========================
-   CONTACT SECTION (CENTERED & POLISHED)
+   CONTACT SECTION: EDITORIAL SPLIT
 ========================= */
 
 .contact {
   padding: clamp(80px, 12vh, 150px) 8%;
   background: var(--bg);
+  position: relative;
+  overflow: hidden; /* Contains any 3D overflow */
+}
+
+/* 1. Layout Structure */
+.contact-split-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(40px, 6vw, 80px);
+  max-width: 1300px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+/* 2. Left Side: Editorial Typography */
+.editorial-title {
+  font-size: clamp(2.5rem, 4.5vw, 4.2rem);
+  line-height: 1.1;
+  font-weight: 800;
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.text-gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.editorial-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  color: var(--secondary-text);
+  line-height: 1.7;
+  margin-bottom: 40px;
+  max-width: 90%;
+}
+
+/* 3. Left Side: Contact Pills */
+.contact-pills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.contact-pill {
   display: flex;
-  justify-content: center; /* Centers the card horizontally */
-  align-items: center;     /* Centers the card vertically */
-  min-height: 80vh;        /* Ensures the section fills the viewport */
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: rgba(var(--bg-rgb), 0.5);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--text);
+}
+
+.contact-pill:hover {
+  background: var(--card-bg);
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px var(--shadow);
+}
+
+.pill-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  background: rgba(var(--bg-rgb), 0.8);
+  border-radius: 14px;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.contact-pill:hover .pill-icon {
+  background: var(--accent-gradient);
+  color: #fff;
+  border-color: transparent;
+  transform: scale(1.05);
+}
+
+.pill-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.pill-label {
+  font-size: 0.85rem;
+  color: var(--secondary-text);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pill-value {
+  font-size: 1.05rem;
+  color: var(--text);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 4. Right Side: The Form Card */
+.contact-form-wrapper {
+  width: 100%;
 }
 
 .contact-card {
   background: var(--card-bg);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--border);
-  /* INCREASED PADDING: Gives the text room to breathe */
-  padding: clamp(40px, 6vw, 70px); 
+  padding: clamp(30px, 4vw, 50px); 
   border-radius: 32px;
-  max-width: 700px;
   width: 100%;
-  box-shadow: 0 25px 50px -12px var(--shadow);
-  /* POSITIONING: Ensures it stays in the middle */
-  margin: 0 auto;
+  box-shadow: 0 25px 50px -12px var(--shadow-lg);
 }
 
-.contact-header {
-  /* Keeps the text left-aligned inside the centered card */
-  text-align: left; 
-  margin-bottom: 2.5rem;
+.form-header {
+  margin-bottom: 30px;
 }
 
-.contact-subtitle {
+.form-header h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.form-header p {
   color: var(--secondary-text);
-  font-size: 1.1rem;
-  line-height: 1.6;
-  /* Limits width so the description doesn't stretch too thin */
-  max-width: 500px; 
+  font-size: 1.05rem;
 }
 
-/* Ensure the form items stay aligned to the left of the card */
 .contact-form {
   display: flex;
   flex-direction: column;
@@ -54,25 +157,32 @@
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 18px;
+  padding: 18px 20px;
   border-radius: 16px;
   border: 1px solid var(--border);
-  background: rgba(var(--bg-rgb), 0.5); /* Glass feel */
+  background: rgba(var(--bg-rgb), 0.5);
   color: var(--text);
   font-family: inherit;
   font-size: 1rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--secondary-text);
+  opacity: 0.7;
+}
+
 .contact-form input:focus,
 .contact-form textarea:focus {
   background: var(--bg);
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
   transform: scale(1.01);
+  outline: none;
 }
 
-/* Submit Button Customization */
+/* Submit Button */
 .submit-btn {
   display: flex;
   justify-content: center;
@@ -81,6 +191,7 @@
   margin-top: 10px;
   border: none;
   cursor: pointer;
+  width: 100%;
 }
 
 .btn-content {
@@ -94,9 +205,9 @@
   cursor: not-allowed;
 }
 
-/* Status Messages Refinement */
+/* Status Messages */
 .status-container {
-  min-height: 50px; /* Prevents layout jump */
+  min-height: 50px;
   margin-top: 15px;
 }
 
@@ -128,10 +239,34 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive */
+/* Responsive Design */
+@media (max-width: 992px) {
+  .contact-split-layout {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  
+  .editorial-title {
+    text-align: center;
+  }
+  
+  .editorial-title br {
+    display: none;
+  }
+  
+  .editorial-subtitle {
+    text-align: center;
+    margin: 0 auto 40px auto;
+  }
+}
+
 @media (max-width: 600px) {
   .contact-card {
     padding: 30px 20px;
     border-radius: 24px;
+  }
+  
+  .contact-pills-grid {
+    grid-template-columns: 1fr;
   }
 }

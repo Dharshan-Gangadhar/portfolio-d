@@ -22,7 +22,7 @@ function ProjectCard({ project }) {
       <Tilt className={`project-card ${isAI ? "ai-highlight" : ""} glass`}>
         <div className="project-image-container lift-3d-md">
           {project.image ? (
-            <img src={project.image} alt={project.title} className="project-img" />
+            <img src={project.image} alt={project.title} className="project-img" loading="lazy" />
           ) : (
             <div className="project-placeholder-gradient">
               <Code2 size={48} className="placeholder-icon" />

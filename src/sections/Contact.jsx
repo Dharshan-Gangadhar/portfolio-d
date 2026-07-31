@@ -79,7 +79,7 @@ const Contact = () => {
               </div>
             </div>
 
-            <a href="https://github.com/Dharshan-Gangadhar" target="_blank" rel="noreferrer" className="contact-pill glass lift-3d-sm">
+            <a href="https://github.com/Dharshan-Gangadhar" target="_blank" rel="noopener noreferrer" className="contact-pill glass lift-3d-sm">
               <div className="pill-icon"><Github size={20} /></div>
               <div className="pill-content">
                 <span className="pill-label">GitHub</span>
@@ -87,7 +87,7 @@ const Contact = () => {
               </div>
             </a>
 
-            <a href="https://www.linkedin.com/in/dharshan-gangadhar75/" target="_blank" rel="noreferrer" className="contact-pill glass lift-3d-sm">
+            <a href="https://www.linkedin.com/in/dharshan-gangadhar75/" target="_blank" rel="noopener noreferrer" className="contact-pill glass lift-3d-sm">
               <div className="pill-icon"><Linkedin size={20} /></div>
               <div className="pill-content">
                 <span className="pill-label">LinkedIn</span>

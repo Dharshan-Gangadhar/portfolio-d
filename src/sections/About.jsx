@@ -41,7 +41,7 @@ const About = () => {
         <motion.div variants={bentoVariants} className="bento-item bento-profile-wrapper">
           <Tilt className="bento-card bento-profile preserve-3d">
             <div className="animated-ring"></div>
-            <img src="/Dharshan.jpg" alt="Dharshan" className="profile-img" />
+            <img src="/Dharshan.jpg" alt="Dharshan" className="profile-img" loading="lazy" />
           </Tilt>
         </motion.div>
 

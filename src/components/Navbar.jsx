@@ -141,7 +141,7 @@ const Navbar = ({ toggleTheme, isDark, view, handleNavClick }) => {
         </div>
       </div>
 
-      <div className="nav-mobile" aria-hidden={!isMenuOpen}>
+      <div className="nav-mobile" aria-hidden={!isMenuOpen} inert={!isMenuOpen ? "" : undefined}>
         <div className="nav-mobile-surface">
           <div id="nav-mobile-panel" className="nav-mobile-panel">
             {navItems.map((item) => (

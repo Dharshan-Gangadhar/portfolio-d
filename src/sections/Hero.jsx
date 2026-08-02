@@ -33,11 +33,10 @@ const Hero = () => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20, filter: "blur(5px)" },
+    hidden: { opacity: 0, y: 20 },
     visible: { 
       opacity: 1, 
       y: 0, 
-      filter: "blur(0px)",
       transition: { type: "spring", stiffness: 100, damping: 20 }
     }
   };

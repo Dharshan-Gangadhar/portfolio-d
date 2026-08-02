@@ -13,7 +13,8 @@ export default function ThreeDCanvas() {
     let height = (canvas.height = window.innerHeight);
 
     let particles = [];
-    const particleCount = Math.min(60, Math.floor((width * height) / 25000)); // Adaptive count
+    let isMobile = window.innerWidth < 768;
+    let particleCount = isMobile ? 15 : Math.min(60, Math.floor((width * height) / 25000)); // Adaptive count
     const focalLength = 300;
     const maxDistance = 120; // Constellation link distance
 
@@ -41,6 +42,8 @@ export default function ThreeDCanvas() {
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
+      isMobile = window.innerWidth < 768;
+      particleCount = isMobile ? 15 : Math.min(60, Math.floor((width * height) / 25000));
       initParticles();
     };
 
@@ -134,28 +137,30 @@ export default function ThreeDCanvas() {
         });
       }
 
-      // Draw constellation links (lines)
-      ctx.lineWidth = 0.5;
-      for (let i = 0; i < projected.length; i++) {
-        for (let j = i + 1; j < projected.length; j++) {
-          const p1 = projected[i];
-          const p2 = projected[j];
+      // Draw constellation links (lines) - skip on mobile to save O(N^2) CPU calculations
+      if (!isMobile) {
+        ctx.lineWidth = 0.5;
+        for (let i = 0; i < projected.length; i++) {
+          for (let j = i + 1; j < projected.length; j++) {
+            const p1 = projected[i];
+            const p2 = projected[j];
 
-          const dx = p1.x - p2.x;
-          const dy = p1.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+            const dx = p1.x - p2.x;
+            const dy = p1.y - p2.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < maxDistance) {
-            // Opacity decreases with distance and depth (negative scale/negative z)
-            const depthFactor = Math.max(0, Math.min(1, (p1.scale + p2.scale) / 2));
-            const alpha = (1 - dist / maxDistance) * 0.14 * depthFactor;
-            
-            ctx.strokeStyle = p1.colorIndex === 0 ? accentColor : accent2Color;
-            ctx.globalAlpha = alpha;
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
+            if (dist < maxDistance) {
+              // Opacity decreases with distance and depth (negative scale/negative z)
+              const depthFactor = Math.max(0, Math.min(1, (p1.scale + p2.scale) / 2));
+              const alpha = (1 - dist / maxDistance) * 0.14 * depthFactor;
+              
+              ctx.strokeStyle = p1.colorIndex === 0 ? accentColor : accent2Color;
+              ctx.globalAlpha = alpha;
+              ctx.beginPath();
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
           }
         }
       }

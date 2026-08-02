@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "./components/Navbar";
-import ThreeDCanvas from "./components/ThreeDCanvas";
+const ThreeDCanvas = lazy(() => import("./components/ThreeDCanvas"));
 import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Experience from "./sections/Experience";
@@ -116,7 +116,9 @@ function App() {
         }} 
       />
 
-      <ThreeDCanvas />
+      <Suspense fallback={null}>
+        <ThreeDCanvas />
+      </Suspense>
       <Navbar 
         isDark={dark} 
         toggleTheme={toggleTheme} 

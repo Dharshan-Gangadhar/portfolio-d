@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import "./Hero.css";
 
-const Hero = () => {
+const Hero = ({ handleNavClick }) => {
   const containerRef = useRef(null);
 
   const handleMouseMove = (e) => {
@@ -65,7 +65,14 @@ const Hero = () => {
         </motion.p>
 
         <motion.div className="hero-buttons" variants={itemVariants}>
-          <a href="#contact" className="btn-primary">
+          <a 
+            href="#contact" 
+            className="btn-primary"
+            onClick={(e) => {
+              e.preventDefault();
+              if (handleNavClick) handleNavClick("main", "contact");
+            }}
+          >
             Start a Project
           </a>
           <a href="/resume.pdf" download className="btn-secondary">

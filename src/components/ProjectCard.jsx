@@ -18,8 +18,8 @@ function ProjectCard({ project }) {
   };
 
   return (
-    <motion.div variants={cardVariants}>
-      <Tilt className={`project-card ${isAI ? "ai-highlight" : ""} glass`}>
+    <motion.div variants={cardVariants} className={isAI ? "ai-highlight-glow" : ""} style={{ height: "100%" }}>
+      <Tilt className={`project-card ${isAI ? "ai-highlight-border" : ""} glass`} style={{ height: "100%" }}>
         <div className="project-image-container lift-3d-md">
           {project.image ? (
             <img src={project.image} alt={project.title} className="project-img" loading="lazy" />
@@ -42,13 +42,13 @@ function ProjectCard({ project }) {
           </div>
 
           <div className="project-links lift-3d-md">
-            {project.live && (
+            {project.live && project.live !== "#" && (
               <a href={project.live} target="_blank" rel="noopener noreferrer" className="project-link-btn">
                 <ExternalLink size={18} />
                 <span>Live Demo</span>
               </a>
             )}
-            {project.github && (
+            {project.github && project.github !== "#" && (
               <a href={project.github} target="_blank" rel="noopener noreferrer" className="project-link-btn github">
                 <Github size={18} />
                 <span>Source</span>

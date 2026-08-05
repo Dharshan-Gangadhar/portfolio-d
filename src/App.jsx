@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import Navbar from "./components/Navbar";
+import ErrorBoundary from "./components/ErrorBoundary";
 const ThreeDCanvas = lazy(() => import("./components/ThreeDCanvas"));
 import Hero from "./sections/Hero";
 import About from "./sections/About";
@@ -43,20 +44,30 @@ function App() {
     });
     lenisRef.current = lenis;
 
+    let rafId;
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
       lenisRef.current = null;
     };
   }, []);
 
   const toggleTheme = () => setDark(prevDark => !prevDark);
+
+  // Handle hash on initial load
+  useEffect(() => {
+    if (window.location.hash && view === "main") {
+      const hash = window.location.hash.replace("#", "");
+      if (hash) setTargetSection(hash);
+    }
+  }, []);
 
   const handleNavClick = (newView, sectionId = null) => {
     setView(newView);
@@ -74,17 +85,18 @@ function App() {
   // Scroll to section after view updates back to main homepage
   useEffect(() => {
     if (view === "main" && targetSection) {
+      // 500ms timeout ensures components (especially images and canvas) are fully mounted and layout has settled before scrolling.
       const timer = setTimeout(() => {
         if (lenisRef.current) {
           lenisRef.current.scrollTo(`#${targetSection}`, { offset: -80 });
         } else {
           const element = document.getElementById(targetSection);
           if (element) {
-            element.scrollIntoView({ behavior: "auto", block: "start" });
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
           }
         }
         setTargetSection(null);
-      }, 100);
+      }, 500);
       return () => clearTimeout(timer);
     }
   }, [view, targetSection]);
@@ -116,9 +128,11 @@ function App() {
         }} 
       />
 
-      <Suspense fallback={null}>
-        <ThreeDCanvas />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={null}>
+          <ThreeDCanvas />
+        </Suspense>
+      </ErrorBoundary>
       <Navbar 
         isDark={dark} 
         toggleTheme={toggleTheme} 
@@ -131,7 +145,7 @@ function App() {
         <main key={view}>
           {view === "main" ? (
             <>
-              <Hero />
+              <Hero handleNavClick={handleNavClick} />
               <About />
               <Skills />
               <Experience />

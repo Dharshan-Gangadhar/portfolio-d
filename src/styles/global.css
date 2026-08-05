@@ -677,6 +677,24 @@ p {
   transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+.project-category-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(var(--bg-rgb), 0.7);
+  backdrop-filter: blur(8px);
+  padding: 6px 12px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px var(--shadow);
+  z-index: 10;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .project-placeholder-gradient {
   width: 100%;
   height: 100%;
@@ -713,18 +731,23 @@ p {
 }
 
 /* 4. AI Highlight Pulse */
-.project-card.ai-highlight {
-  border: 1px solid rgba(56, 189, 248, 0.3);
+.project-card.ai-highlight-border {
+  border: 1px solid rgba(56, 189, 248, 0.5);
 }
 
-.project-card.ai-highlight::before {
+.ai-highlight-glow {
+  position: relative;
+  z-index: 1;
+}
+
+.ai-highlight-glow::before {
   content: '';
   position: absolute;
-  inset: -1px;
+  inset: -3px;
   background: var(--accent-gradient);
   z-index: -1;
-  border-radius: 24px;
-  opacity: 0.3;
+  border-radius: 27px;
+  opacity: 0.4;
   animation: pulse-glow 3s infinite alternate;
 }
 
@@ -763,76 +786,6 @@ p {
    SKILLS SECTION (POLISHED)
 ========================= */
 
-
-.project-placeholder-gradient {
-  width: 100%;
-  height: 100%;
-  background: var(--accent-gradient);
-  opacity: 0.15;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 3. Link & Icon Polish */
-.project-links {
-  margin-top: auto;
-  display: flex;
-  gap: 25px;
-  padding: 20px 24px;
-  border-top: 1px solid var(--border);
-}
-
-.project-link-btn {
-  text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Space for Lucide Icons */
-  transition: all 0.3s ease;
-}
-
-.project-link-btn:hover {
-  color: var(--accent);
-  gap: 12px; /* Subtle expansion effect */
-}
-
-/* 4. AI Highlight Pulse */
-.project-card.ai-highlight {
-  border: 1px solid rgba(56, 189, 248, 0.3);
-}
-
-.project-card.ai-highlight::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  background: var(--accent-gradient);
-  z-index: -1;
-  border-radius: 24px;
-  opacity: 0.3;
-  animation: pulse-glow 3s infinite alternate;
-}
-
-/* Keep your existing Keyframes below */
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
-}
-@keyframes pulse-glow {
-  0% { 
-    opacity: 0.2; 
-    filter: blur(8px);
-    transform: scale(0.98); 
-  }
-  100% { 
-    opacity: 0.6; 
-    filter: blur(15px);
-    transform: scale(1.02); 
-  }
-}
 
 
 

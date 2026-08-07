@@ -55,8 +55,9 @@ function Footer({ handleNavClick, lenisRef }) {
             <h4 className="footer-group-title">Connect</h4>
             <nav className="footer-nav-list">
               <a href="https://github.com/Dharshan-Gangadhar" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a href="https://www.linkedin.com/in/dharshan-gangadhar75/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="https://www.linkedin.com/in/dharshan-gangadhar75" target="_blank" rel="noopener noreferrer">LinkedIn</a>
               <a href="mailto:dharshanoffll@gmail.com">Email</a>
+              <a href="https://leetcode.com/u/dharshan94">LeetCode</a>
             </nav>
           </div>
         </div>

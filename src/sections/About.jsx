@@ -7,11 +7,13 @@ import "../styles/global.css";
 
 const About = () => {
   const bentoVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 40, rotateX: -15, scale: 0.95 },
     visible: { 
       opacity: 1, 
       y: 0, 
-      transition: { type: "spring", stiffness: 60, damping: 20 }
+      rotateX: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 80, damping: 20 }
     }
   };
 
@@ -36,6 +38,7 @@ const About = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
         transition={{ staggerChildren: 0.15 }}
+        style={{ perspective: "1200px" }}
       >
         {/* Card 1: Profile Image (Spans 1 col, 1 row, Circle) */}
         <motion.div variants={bentoVariants} className="bento-item bento-profile-wrapper">

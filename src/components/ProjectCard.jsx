@@ -9,10 +9,12 @@ function ProjectCard({ project }) {
   );
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 50, rotateX: 15, scale: 0.95 },
     visible: { 
       opacity: 1, 
       y: 0,
+      rotateX: 0,
+      scale: 1,
       transition: { type: "spring", stiffness: 80, damping: 20 }
     }
   };

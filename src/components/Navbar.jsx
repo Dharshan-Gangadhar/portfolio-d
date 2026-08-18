@@ -88,17 +88,37 @@ const Navbar = ({ toggleTheme, isDark, view, handleNavClick }) => {
       <div className="nav-container">
         <a 
           className="logo" 
-          href={view === "main" ? "#hero" : "#"} 
+          href="#hero" 
           onClick={(e) => handleLinkClick(e, "hero")}
+          style={{ display: "inline-flex", alignItems: "center", gap: "2px" }}
         >
-          Dharshan<span className="logo-dot">⚡</span>
+          <motion.span
+            initial={{ opacity: 0, x: -15, filter: "blur(4px)" }}
+            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
+          >
+            Dharshan
+          </motion.span>
+          <motion.span 
+            className="logo-dot"
+            initial={{ opacity: 0, scale: 0, y: -30, rotate: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 400, 
+              damping: 15,
+              mass: 1 
+            }}
+          >
+            ⚡
+          </motion.span>
         </a>
 
         <ul className="nav-links">
           {navItems.map((item) => (
             <li key={item.id} style={{ position: "relative" }}>
               <a
-                href={view === "main" ? `#${item.id}` : "#"}
+                href={`#${item.id}`}
                 onClick={(e) => handleLinkClick(e, item.id)}
                 className={currentActiveSection === item.id ? "is-active" : ""}
               >
@@ -147,7 +167,7 @@ const Navbar = ({ toggleTheme, isDark, view, handleNavClick }) => {
             {navItems.map((item) => (
               <a
                 key={item.id}
-                href={view === "main" ? `#${item.id}` : "#"}
+                href={`#${item.id}`}
                 onClick={(e) => handleLinkClick(e, item.id)}
                 className={currentActiveSection === item.id ? "is-active" : ""}
               >

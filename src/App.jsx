@@ -61,31 +61,63 @@ function App() {
 
   const toggleTheme = () => setDark(prevDark => !prevDark);
 
-  // Handle hash on initial load
+  // Handle hash on initial load and popstate
   useEffect(() => {
-    if (window.location.hash && view === "main") {
-      const hash = window.location.hash.replace("#", "");
-      if (hash) setTargetSection(hash);
-    }
-  }, []);
+    const handleHash = () => {
+      if (window.location.hash) {
+        const hash = window.location.hash.replace("#", "");
+        if (hash === "projects") {
+          setView("projects");
+        } else if (hash) {
+          if (view !== "main") setView("main");
+          setTargetSection(hash);
+        }
+      } else {
+        setView("main");
+        setTargetSection("hero");
+      }
+    };
+
+    handleHash(); // Run on mount
+    window.addEventListener("popstate", handleHash);
+    return () => window.removeEventListener("popstate", handleHash);
+  }, [view]);
 
   const handleNavClick = (newView, sectionId = null) => {
+    const isViewChanging = view !== newView;
     setView(newView);
+
     if (newView === "projects") {
+      window.history.pushState(null, "", "#projects");
       if (lenisRef.current) {
         lenisRef.current.scrollTo(0, { immediate: false });
       } else {
         window.scrollTo({ top: 0, behavior: "auto" });
       }
     } else if (sectionId) {
-      setTargetSection(sectionId);
+      window.history.pushState(null, "", `#${sectionId}`);
+      if (isViewChanging) {
+        setTargetSection(sectionId);
+      } else {
+        // We are already on the main view. Scroll immediately without delay!
+        if (lenisRef.current) {
+          lenisRef.current.scrollTo(`#${sectionId}`, { offset: -80 });
+        } else {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      }
+    } else {
+      window.history.pushState(null, "", window.location.pathname);
     }
   };
 
   // Scroll to section after view updates back to main homepage
   useEffect(() => {
     if (view === "main" && targetSection) {
-      // 500ms timeout ensures components (especially images and canvas) are fully mounted and layout has settled before scrolling.
+      // 800ms timeout ensures exit animation finishes and components are fully mounted before scrolling.
       const timer = setTimeout(() => {
         if (lenisRef.current) {
           lenisRef.current.scrollTo(`#${targetSection}`, { offset: -80 });
@@ -96,7 +128,7 @@ function App() {
           }
         }
         setTargetSection(null);
-      }, 500);
+      }, 800);
       return () => clearTimeout(timer);
     }
   }, [view, targetSection]);
@@ -142,7 +174,13 @@ function App() {
       />
 
       <AnimatePresence mode="wait">
-        <main key={view}>
+        <motion.main 
+          key={view}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+        >
           {view === "main" ? (
             <>
               <Hero handleNavClick={handleNavClick} />
@@ -154,7 +192,7 @@ function App() {
           ) : (
             <Projects />
           )}
-        </main>
+        </motion.main>
       </AnimatePresence>
 
       <Footer handleNavClick={handleNavClick} lenisRef={lenisRef} />

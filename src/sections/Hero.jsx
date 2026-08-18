@@ -33,11 +33,13 @@ const Hero = ({ handleNavClick }) => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30, rotateX: -30, filter: "blur(5px)" },
     visible: { 
       opacity: 1, 
       y: 0, 
-      transition: { type: "spring", stiffness: 100, damping: 20 }
+      rotateX: 0,
+      filter: "blur(0px)",
+      transition: { type: "spring", stiffness: 120, damping: 20 }
     }
   };
 
@@ -48,6 +50,7 @@ const Hero = ({ handleNavClick }) => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
+        style={{ perspective: "1000px" }}
       >
         <motion.div className="status-badge" variants={itemVariants}>
           <span className="pulse-dot"></span>

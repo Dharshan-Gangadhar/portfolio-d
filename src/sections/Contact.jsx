@@ -4,8 +4,13 @@ import { Send, CheckCircle2, AlertCircle, Mail, Github, Linkedin, MapPin } from 
 import Tilt from "../components/Tilt";
 import "./Contact.css";
 
+const sanitizeInput = (str) => {
+  if (typeof str !== 'string') return str;
+  return str.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+};
+
 const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "", website_hp: "" });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
 
@@ -16,8 +21,27 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (loading) return;
+
+    // Honeypot check: If the hidden field is filled, it's a bot. Mock success.
+    if (form.website_hp) {
+      setLoading(true);
+      setTimeout(() => {
+        setStatus("success");
+        setForm({ name: "", email: "", message: "", website_hp: "" });
+        setLoading(false);
+        setTimeout(() => setStatus(null), 4000);
+      }, 800);
+      return;
+    }
+
     setLoading(true);
     setStatus(null);
+
+    const sanitizedForm = {
+      name: sanitizeInput(form.name),
+      email: sanitizeInput(form.email),
+      message: sanitizeInput(form.message),
+    };
 
     try {
       const response = await fetch(
@@ -25,13 +49,13 @@ const Contact = () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify(sanitizedForm),
         }
       );
 
       if (response.ok) {
         setStatus("success");
-        setForm({ name: "", email: "", message: "" });
+        setForm({ name: "", email: "", message: "", website_hp: "" });
         setTimeout(() => setStatus(null), 4000);
       } else {
         setStatus("error");
@@ -111,6 +135,18 @@ const Contact = () => {
               <div className="form-header">
                 <h3>Send a Message</h3>
                 <p>I typically reply within 24 hours.</p>
+              </div>
+
+              {/* Honeypot field - Visually hidden to trap spambots */}
+              <div style={{ display: 'none' }} aria-hidden="true">
+                <input
+                  type="text"
+                  name="website_hp"
+                  tabIndex="-1"
+                  autoComplete="off"
+                  value={form.website_hp}
+                  onChange={handleChange}
+                />
               </div>
 
               <div className="form-group">
